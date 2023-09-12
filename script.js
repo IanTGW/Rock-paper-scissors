@@ -21,10 +21,10 @@ function hi(string){
 }
 
 function playRound(playerSelection, computerSelection){
-    
-    if(playerSelection === computerSelection){
+
+    if(playerSelection === computerSelection()){
         return "You Tied!" ;
-    } else if (playerSelection === 'Rock' && computerSelection === 'Paper' || playerSelection === 'Paper' && computerSelection === 'Scissors' || playerSelection === 'Scissors' && computerSelection === 'Rock'){
+    } else if (playerSelection === 'Rock' && computerSelection() === 'Paper' || playerSelection === 'Paper' && computerSelection() === 'Scissors' || playerSelection === 'Scissors' && computerSelection() === 'Rock'){
         computerScore++;
         return "You Lose! " + computerSelection() + " beats " + playerSelection;
     } else {
@@ -34,11 +34,31 @@ function playRound(playerSelection, computerSelection){
 
 }
 
+let i = 0
+
 function printResult(playerSelection, computerSelection){
+
+    i++
 
     let outcome = playRound(playerSelection, computerSelection);
     
+    if(i >= 5) {
+    finalScore()
+    } else {
     result.textContent = outcome;
+    }
+
+};
+
+function finalScore(){
+
+    if(playerScore === computerScore){
+    result.textContent = "You Tied with the Computer";
+    } else if (playerScore > computerScore){
+    result.textContent = "You Beat the Computer!";
+    } else {
+    result.textContent = "You Lost to the Computer";
+    };
 
 };
 
@@ -52,19 +72,3 @@ const scissors = document.querySelector('#scissors');
 scissors.addEventListener('click', () => printResult('Scissors', getComputerChoice));
 
 const result = document.querySelector('.result');
-
-
-
-
-/*
-let getPlayerChoice = prompt("Choose from rock paper scissors.")
-
-if(getPlayerChoice) getPlayerChoice = getPlayerChoice.toLowerCase();
-
-if (getPlayerChoice === 'rock'|| getPlayerChoice === 'paper'|| getPlayerChoice === 'scissors'){
-    let result = playRound(getPlayerChoice, computerSelection());
-    console.log(result);
-} else {
-    console.log("Input Cancelled");
-};
-*/
