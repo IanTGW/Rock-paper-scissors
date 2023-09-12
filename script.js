@@ -16,46 +16,55 @@ function getComputerChoice() {
 
 }
 
-function playRound(playerSelection, computerSelection){
-   
-    playerSelection = playerSelection.toLowerCase();
-    playerSelection = playerSelection.replace(playerSelection.charAt(0), playerSelection.charAt(0).toUpperCase());
+function hi(string){
+    console.log(string)
+}
 
+function playRound(playerSelection, computerSelection){
+    
     if(playerSelection === computerSelection){
         return "You Tied!" ;
     } else if (playerSelection === 'Rock' && computerSelection === 'Paper' || playerSelection === 'Paper' && computerSelection === 'Scissors' || playerSelection === 'Scissors' && computerSelection === 'Rock'){
         computerScore++;
-        return "You Lose! " + computerSelection + " beats " + playerSelection;
+        return "You Lose! " + computerSelection() + " beats " + playerSelection;
     } else {
         playerScore++;
-        return "You Win! " + playerSelection + " beats " + computerSelection;
+        return "You Win! " + playerSelection + " beats " + computerSelection();
     }
+
 }
 
-function game(){
+function printResult(playerSelection, computerSelection){
 
-    for (let i = 1; i <= 5; i++){
-        console.log(playRound(getPlayerChoice, getComputerChoice()))
-    }
+    let outcome = playRound(playerSelection, computerSelection);
+    
+    result.textContent = outcome;
 
-    let result = function(){
-    if (playerScore === computerScore){
-        return "You tied with the Computer. " + playerScore + " - " + computerScore;
-    } else if (playerScore > computerScore){
-        return "You beat the Computer! " + playerScore + " - " + computerScore;
-    } else {
-        return "You lost to the Computer. " + playerScore + " - " + computerScore;
-    };
-    }
-
-    console.log(result())
 };
 
+const rock = document.querySelector('#rock');
+rock.addEventListener('click', () => printResult('Rock', getComputerChoice));
+
+const paper = document.querySelector('#paper');
+paper.addEventListener('click', () => printResult('Paper', getComputerChoice));
+
+const scissors = document.querySelector('#scissors');
+scissors.addEventListener('click', () => printResult('Scissors', getComputerChoice));
+
+const result = document.querySelector('.result');
+
+
+
+
+/*
 let getPlayerChoice = prompt("Choose from rock paper scissors.")
-getPlayerChoice = getPlayerChoice.toLowerCase()
+
+if(getPlayerChoice) getPlayerChoice = getPlayerChoice.toLowerCase();
 
 if (getPlayerChoice === 'rock'|| getPlayerChoice === 'paper'|| getPlayerChoice === 'scissors'){
-    game();
+    let result = playRound(getPlayerChoice, computerSelection());
+    console.log(result);
 } else {
     console.log("Input Cancelled");
 };
+*/
